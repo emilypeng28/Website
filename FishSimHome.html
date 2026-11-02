@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Fish Room</title>
+    
+    <link rel="stylesheet" href="Site.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel="stylesheet">
+</head>
+
+
+<body>
+
+<body>
+
+    <header id="menu"></header>
+    <script src="Menu.js"></script>
+
+    
+    <section >
+        <div class="iframe-container" style="aspect-ratio: 6/5;">
+                <iframe  src="FishSim/FishSim.html" scrolling="no"></iframe>
+            </div>
+        <div class="flex-container">
+            
+            
+    
+            <div class="text-container" >
+            <h1>Fish Room</h1>
+            <br>
+            <h2>Description</h2>
+            
+                <p>A small simulator of a fish swimming in a fish tank made with the p5.js library. It was a school project where I took the opportunity to go all out on what I knew at the time.</p>
+                
+            </div>
+        </div>
+        <div class="flex-container">
+            <div class="text-container">
+            <h2 style="flex-basis: 100%; text-align: left;">
+                <span>Interactives</span>
+            </h2>
+        </div>
+        </div>
+        <div class="flex-container" >
+    
+        <div class="text-container">
+            
+        <h3>Keys</h3>
+        <t>Press "<b>ENTER</b>" to reset the simulator</t>
+        <t>Press "<b>SPACE</b>" for the fish blow bubbles</t>
+        <t>Press "<b>=</b>" to add an iteration to the Sierpenski Triangle</t>
+        <t>Press "<b>-</b>" to remove an iteration from the Sierpenski Triangle</t>
+        
+        </div>
+        
+        <div class="text-container" >
+        <h3>Mouse</h3>
+
+        <t>The <b>FISH</b> will follow the mouse around.</t>
+        <t>If <b>FISH FOOD</b> is dropped into the tank, the fish will eat it before resuming to following the mouse. </t>
+
+    <t>You can also pop the <b>BUBBLES</b>, close the <b>LIGHTS</b>, and click the fish to make it <b>glow</b> when it's dark</t>
+       
+        </div>
+    </div>
+
+        <div>
+            
+            </div>
+    </section>
+
+
+    
+    
+    
+
+
+
+
+    <section >
+        <h1>Process</h1>
+        <div class="flex-container">
+            <div class="text-container" >
+                <h2>Fish</h2>
+                <mylist>
+                    <ul>
+                        <li>The fish and mouse's position coordinates are used to calculate their slope</li>
+                        <li>The slope is used to determine what angle the fish should swim</li>
+                        <li>Eyes, fins, and tail coordiantes are positioned relative to the fish body</li>
+                        <li>The fish's position is contrained to remain inside the tank</li>
+                    <ul>
+                </mylist>
+            </div>
+
+            <div class="text-container" >
+                <h2>Background</h2>
+                <mylist>
+                    <ul>
+                        <li>A grid function was written to use as a guide to drawing the background</li>
+                        <li>Rule of thirds is loosly used for the composition</li>
+                        <li>Water is constantly slightly changing between different hues of blues to make it look more dynamic</li>
+                    <ul>
+                </mylist>
+            </div>
+            
+            <div class="iframe-container" style="aspect-ratio: 11/8;">
+                <iframe  src="FishSim/Fish1.html" scrolling="no"></iframe>
+            </div>
+    
+        </div>
+
+
+        <div class="flex-container">
+            <div class="text-container" >
+                <h2>Light Switch</h2>
+                <mylist>
+                    <ul>
+                        <li>A variable stores a boolean value representing the light switch's status</li>
+                        <li>The variable changes if the user clicks within the switch's coordinates</li>
+                        <li>All elements' color are multiplied by a variable called darkness</li>
+                        <li>When lights are off, the darkness variable gives each element a darker value</li>
+                    <ul>
+                </mylist>
+            </div>
+
+            <div class="text-container" >
+                <h2>Food</h2>
+                <mylist>
+                    <ul>
+                        <li>A variable mode is used to indicate how the fish and food should react</li>
+                        <li>If the user clicks the food box, a food shape is drawn using an array of randomized values (Mode 1)</li>
+                        <li>Once created, the food can be dragged around (Mode 2)</li>
+                        <li>When the food is dropped, the fish follows the food until it is eaten or falls off the screen (Mode 3)</li>
+                        <li>After the food is no longer visible, the fish and food resets (Mode 0)</li>                
+                    <ul>
+                </mylist>
+            </div>
+
+            
+            <div class="iframe-container" style="aspect-ratio: 11/8;">
+                <iframe  src="FishSim/Fish2.html" scrolling="no"></iframe>
+            </div>
+    
+        </div>
+
+
+
+        <div class="flex-container">
+            
+            <div class="text-container" >
+                <h2>Bubbles</h2>
+                <mylist>
+                    <ul>
+                        <li>A 2-dimensional array hold each bubble, and their properties' values</li>
+                        <li>A bubble's properties are randomly generated when they form</li>
+                        <li>Every refresh, the program goes through each array item to draw each bubble, modifying them when necessary</li>
+                        <li>An element value is set to 0 when its bubble pops</li>
+                    <ul>
+                </mylist>
+            </div>
+
+            <div class="text-container" >
+                <h2>Seaweed</h2>
+                <mylist>
+                    <ul>
+                        <li>Like with the bubbles, an array is used to store the information of each seaweed</li>
+                        <li>A function is written to create values for each seaweed's starting coordinates</li>
+                        <li>Every refresh, each of the nodes' coodinate values are changed slightly</li>
+                        
+                    <ul>
+                </mylist>
+            </div>
+
+            
+            <div class="iframe-container" style="aspect-ratio: 11/8;">
+                <iframe  src="FishSim/Fish3.html" scrolling="no"></iframe>
+            </div>
+    
+        </div>
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- --------------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+    <!-- --------------------------------------------------------------------------------------- -->
+
+
+
+ 
+</body>
+</html>

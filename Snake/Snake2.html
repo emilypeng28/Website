@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+   <!-- <script src="libraries/p5.sound.min.js"></script>
+
+   -->
+  </head>
+
+  <body>
+    <button onClick="window.location.reload();" style="height: 20px;">Refresh</button>
+
+      <script >
+
+
+        let myWidth=400;
+        let myHeight=400;
+
+          
+
+        function setup() {
+            
+        if (windowWidth/400 < (windowHeight-30)/400){
+            myWidth=windowWidth;
+            myHeight=400*windowWidth/400;
+        }
+        else {
+            myWidth=400*(windowHeight-30)/400;
+            myHeight=windowHeight-30;
+        }
+          createCanvas(myWidth, myHeight);
+
+          frameRate(30);
+        }
+
+
+
+        function windowResized() {
+                
+        if (windowWidth/400 < (windowHeight-30)/400){
+            myWidth=windowWidth;
+            myHeight=400*windowWidth/400;
+        }
+        else {
+            myWidth=400*(windowHeight-30)/400;
+            myHeight=windowHeight-30;
+        }
+            resizeCanvas(myWidth, myHeight);
+        }
+        
+        function sku()
+        {
+          const ary = [10, 11, 12, 10, 13, 4, 5, 6, 9, 14, 2, 3, 7, 9, 11, 15, 1, 4, 5, 8, 12, 15, 1, 8, 10, 12, 15, 1, 8, 9, 12, 15, 1, 8, 12, 15, 1, 4, 5, 8, 12, 15, 2, 8, 11, 15, 3, 4, 7, 8, 9, 10, 15, 5, 6, 9, 14, 10, 12, 13, 14, 11, 15, 12, 13, 14];
+          const arx = [1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 15, 15, 15];
+          
+          fill(0);
+          
+          for(q=1; q<arx.length; q++)
+            
+            {
+            // fill(0+q);
+              rect(arx[q]*10+130, ary[q]*10+200, 10, 10)
+            }
+          
+          
+        }
+        
+        function skd()
+        {
+          
+        const aryy = [10, 11, 12, 10, 13, 5, 6, 7, 9, 14, 3, 4, 8, 9, 11, 15, 2, 5, 6, 9, 12, 15, 2, 9, 10, 12, 15, 2, 9, 9, 12, 15, 2, 9, 12, 15, 2, 5, 6, 9, 12, 15, 3, 9, 11, 15, 4, 5, 8, 9, 9, 10, 15, 6, 7, 9, 14, 10, 12, 13, 14, 11, 15, 12, 13, 14];
+          const arxx = [1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 15, 15, 15];
+        
+          fill(0);
+          
+          for(q=1; q<arxx.length; q++)
+            
+            {
+            // fill(0+q);
+              rect(arxx[q]*10+130, aryy[q]*10+200, 10, 10)
+            }
+        }
+        
+        
+        const ssy = [150, 150, 150, 150, 150, 150, 150, 150, 150, 150];
+        const ssx = [300, 305, 310, 315, 320, 325, 330, 335, 340, 345];
+        /*
+        
+        function mouseClicked()
+        {
+          circle(mouseX, mouseY, 90);
+          print("__");
+          print(mouseX);
+          print(mouseY);
+        }
+        */
+        
+        function makeSnake(ssx, ssy) {
+          var e = 1;
+          //snake border
+          for (w = 1; w < ssx.length; w++) {
+            fill(0, 260, 0);
+            stroke(1);
+            rect(ssx[ssx.length - w], ssy[ssy.length - w], 20, 20);
+          }
+          //snake fill
+          for (w = 1; w < ssx.length; w++) {
+            fill(0, 260, 0);
+            noStroke();
+            rect(ssx[ssx.length - w], ssy[ssy.length - w], 20, 20);
+          }
+        
+          //snake head
+          stroke(1);
+          fill(0, 260, 0);
+          rect(ssx[0], ssy[0], 20, 20);
+        }
+        
+        function moveBack(ar, sp) {
+          for (w = 0; w < sp; w++) {
+            for (q = 1; q < ar.length; q++) {
+              ar[ar.length - q] = ar[ar.length - (q + 1)];
+            }
+          }
+        }
+        var o = 0;
+        var p=0; 
+        function draw() {
+
+          scale(myWidth/400);
+          background(222);
+          textSize(80);
+          text("SNAKE", 70, 90);
+        
+          textSize(20);
+          text("Press Space To Start", 110, 120);
+        
+          // rect(50, 130, 120, 70)
+          // rect(220, 130, 120, 70)
+          makeSnake(ssx, ssy);
+          moveBack(ssx, 1);
+          moveBack(ssy, 1);
+          ssx[0] = ssx[0] - 5;
+          if (ssx[0] < 0) {
+            ssx[0] = 400;
+            
+          }
+          
+          
+        /*
+        const ary = [11, 12, 13, 10, 14, 4, 5, 6, 9, 15, 2, 3, 7, 9, 11, 16, 1, 4, 5, 8, 12, 15, 1, 8, 10, 12, 15, 1, 8, 9, 12, 15, 1, 8, 12, 15, 1, 4, 5, 8, 12, 15, 2, 8, 11, 15, 3, 4, 7, 8, 9, 10, 15, 5, 6, 9, 14, 10, 12, 13, 14, 11, 15, 12, 13, 14];
+          const arx = [1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13, 14, 14, 15, 15, 15];
+          
+        */
+          
+          if (p==1)
+          {
+              if (o==10)
+              {
+                p=0;
+                o=0;
+          }
+            else 
+              {
+                      skd();
+            o=o+1
+        
+              }
+          
+          
+          
+          
+          }
+        
+        
+        if (p==0)
+          {
+            sku();
+            o=o+1;
+            if (o==10)
+              {
+                p=1;
+                o=0;
+              }
+          }
+        
+          
+          
+        }
+        
+        
+      </script>
+    </body>
+</html>

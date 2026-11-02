@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+
+    <style>
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+      } 
+    </style>
+
+  </head>
+    
+  <body>
+
+    <button onClick="window.location.reload();" style="height: 20px;">Refresh</button>
+
+
+    <script>
+
+        let myWidth=640;
+        let myHeight=390;
+
+              
+        let MouseX = 0;
+        let MouseY = 0;
+
+
+        function setup() {
+            
+        if (windowWidth/640 < (windowHeight-30)/360){
+            myWidth=windowWidth;
+            myHeight=360*windowWidth/640;
+        }
+        else {
+            myWidth=640*(windowHeight-30)/360;
+            myHeight=windowHeight-30;
+        }
+          createCanvas(myWidth, myHeight);
+          reset();
+        }
+
+
+
+        function windowResized() {
+            
+        if (windowWidth/640 < (windowHeight-30)/360){
+            myWidth=windowWidth;
+            myHeight=360*windowWidth/640;
+        }
+        else {
+            myWidth=640*(windowHeight-30)/360;
+            myHeight=windowHeight-30;
+        }
+            resizeCanvas(myWidth, myHeight);
+        }
+
+
+      //Input variables
+
+      //fish: x-coordinate, y-coordinate, mode
+      let fx=80;
+      let fy=260;
+      let md=1;
+
+      //food: mode, x-coordinate, y-coordinate, drop acceleration
+      let food=0;
+      let fdx=-10;
+      let fdy=-10;
+      let ac = 1;
+
+      //bubble trick: mode, bubble size, x-coordinate, y-coordinate
+      let tk=0;
+      let sz=1;
+      let bx=-10;
+      let by=-10;
+
+      //colours: darkness(%), light switch
+      let dk=1;
+      let ld=1;
+
+
+
+      //Auto variables
+
+      //let fontOswald;
+
+      //colours: water red, water green, water blue
+      let wr=100;
+      let wg=100; 
+      let wb=250;
+
+
+      //arrays: returning x and y for fish, x for fish food, y for fish food
+      const ar = [0, 0, 1, 0];
+      const arx=[0, 0, 0, 0, 0, 0, 0, 0];	
+      const ary=[0, 0, 0, 0, 0, 0, 0, 0];
+        
+      //mouse down
+      let msd=0;
+
+
+      function draw() {
+    
+        scale(myWidth/640);
+        MouseX=640*mouseX/myWidth;
+        MouseY=640*mouseY/myWidth;
+        
+        dk=ld;
+        roomBackground(dk);
+        lightSwitch(ld);
+        ld=ar[2];
+        msd=ar[3];
+        //print(dk);
+        
+        dTank(dk);
+        
+        dSeaweed(150, 290, 4);
+        
+        dFish(fx, fy, md, dk);
+        fx=ar[0];
+        fy=ar[1];
+
+        dFood(food);
+        
+        dSeaweed(100, 290, 5);
+        
+        //print(fdx);
+        
+        
+        
+
+        
+        //guides(20);
+      }
+
+
+      /*
+      //loading Oswald font
+      function preload() {
+        fontOswald = loadFont('Oswald-Regular.ttf')
+      }
+      */
+      //for key inputs
+      function keyPressed()
+      {
+        if (keyCode === ENTER) 
+        {
+      //		print("a");
+          reset();
+        }
+        if (key == " ")
+          {
+            tk=1;
+            
+          }
+      }
+
+      //resets variables
+      function reset()
+      {
+        
+      //Auto variables
+
+      //colours: water red, water green, water blue
+      wr=100;
+      wg=100; 
+      wb=250;
+
+
+      //Input variables
+
+      //fish: x-coordinate, y-coordinate, mode
+      fx=80;
+      fy=260;
+      md=1;
+
+      //food
+      food=0;
+      fdx=-10;
+      fdy=-10;
+      ac = 1;
+      //colours: darkness(%)
+      dk=1;
+        ld=1;
+
+        tk=0;
+      sz=1;
+      bx=-10;
+      by=-10;
+        
+        
+        
+      }
+
+      function dSeaweed(x, y, sz)
+      {
+        const swxa=[0];
+        const swya=[0];
+        const swxb=[0];
+        const swyb=[0];
+        for(i=0; i<sz; i=i+1)
+          {
+            if(i/2!=ceil(i/2))
+              {
+                swxa[i]=x-5;					
+                swya[i]=y-20*i;
+                swxb[i]=x;					
+                swyb[i]=y-20*i;
+                //print("a");
+              }
+            else
+              {
+                
+                swxa[i]=x;
+                swya[i]=y-20*i;
+                swxb[i]=x+5;
+                swyb[i]=y-20*i;
+              //	print("b");
+              }
+            
+          }
+        stroke(0);
+        fill(100*dk, 200*dk, 100*dk);
+        beginShape();
+
+        for(i=0; i<swxa.length; i++)
+          {
+            vertex(swxa[i], swya[i]);
+          }
+        vertex(x, y-sz*20);
+      for(i=swxb.length; i>0; i--)
+          {
+            vertex(swxb[i], swyb[i]);
+          }
+        endShape(CLOSE);
+      //print(swxa);
+        //print(swxb);
+        
+      }
+
+
+
+
+      //makes food
+      function dFood(fd)
+      {
+        
+        //check if fish food is clicked
+        if(MouseX>70 && MouseX<100 && MouseY>30 && MouseY<100 && mouseIsPressed && food==0)
+          {
+            fd=1;
+            md=2;
+            
+          }
+        
+        //if fish food is not clicked
+        if(fd==0)
+          {
+            fdx=-10;
+            fdy=-10;
+            
+          }
+        //making food
+        else if(fd==1)
+          {
+            
+            for(i=0; i<arx.length; i++)
+              {
+                arx[i]=random(-5, 5);
+                ary[i]=random(-5, 5);
+              }
+          
+            
+            foodShape(fdx, fdy, arx, ary);
+          }	
+        //picking up food
+          else if(fd==2)
+            {
+              stroke(0);
+              foodShape(fdx, fdy, arx, ary);
+              noStroke();
+              foodShape(fdx, fdy, arx, ary);
+              
+              
+            fdx=MouseX;
+            fdy=MouseY;
+            }
+        //dropping food
+        else if(fd==3)
+          {
+            
+              //	let r = random(150, 200);
+            
+            
+            stroke(0);
+              foodShape(fdx, fdy, arx, ary);
+              noStroke();
+              foodShape(fdx, fdy, arx, ary);
+            //print(ac);
+            if (fdy<290)
+              {
+                fdy=fdy+ac;
+                if(fdy<180)
+                  {
+                    ac=ac*1.1;
+                  }
+                else
+                  { 
+                  
+                        ac=ac*0.85;
+                      
+                    
+                  }
+                if(fdy>285)
+                  {
+                    fdy=285;
+                    ac=0;
+                  }
+                
+              
+              }
+            
+            
+          }
+        
+        //changing food modes
+          if(fd==1)
+          {
+            fd=2;
+          }
+        else if(fd==2 && mouseIsPressed==false)
+          {
+            if(fdx>40 && fdx<300 && fdy<290)
+              {
+                fd=3;
+              }
+            else
+              {
+                fd=0;
+                md=1;
+                ac=1;
+              }
+          }
+        else if(food==3 && fdx>fx-10 && fdx<fx+10 && fdy>fy-10 && fdy<fy+10)
+          {
+            fd=0;
+            md=1;
+            ac=1;
+          }
+        
+        food=fd;
+        return food;
+        
+      }
+
+      //creates random food shape
+      function foodShape(x, y, arx, ary)
+      {
+        
+        fill(250*dk, 200*dk, 100*dk);
+        beginShape();
+
+        vertex(arx[0]+x, ary[0]+y);
+        vertex(arx[1]+x, ary[1]+y);
+        vertex(arx[2]+x, ary[2]+y);
+        vertex(arx[3]+x, ary[3]+y);
+        vertex(arx[4]+x, ary[4]+y);
+        vertex(arx[5]+x, ary[5]+y);
+        vertex(arx[6]+x, ary[6]+y);
+        vertex(arx[7]+x, ary[7]+y);
+
+      
+        endShape(CLOSE);
+        
+      }
+
+      //draws fish
+      function dFish(x, y, m, d)
+      {
+        if (m==1)
+          {
+            my = (MouseY-y)/100;
+            mx = (MouseX-x)/100;
+            
+            if(mx>2.4)
+              {
+                mx=2.4;
+              }
+            else if(mx<-2.4)
+              {
+                mx=-2.4
+              }
+            
+            if(my>2)
+              {
+                my=2;
+              }
+            else if (my<-2)
+              {
+                my=-2;
+              }
+            
+          }
+        if (m==2)
+          {
+            mx=(fdx-x)/50;
+            my = (fdy-y)/50;
+            
+            
+          }
+        
+        
+        y=y+my;
+            x=x+mx;
+            
+            if(x<60)
+              {
+                x=60;
+              }
+            else if(x>280)
+              {
+                x=280;
+              }		
+            if(y<180)
+              {
+                y=180;
+              }
+            else if(y>290)
+              {
+                y=290;
+              }
+        
+        
+
+        
+        
+            stroke(0);
+            fishTail(x, y, mx, my, d);
+          
+            //fish body
+            fill(250*d, 200*d, 100*d);
+            ellipse(x, y, 25, 20);
+            
+            fishEyes(x, y, mx, my);
+            
+        
+          if(tk==1)
+          {
+        
+
+        by=y+my*4;
+        bx=x+mx*4+sz*mx/4.5;
+        
+            
+            //	if (sz<40)
+          //			{
+                  sz=sz+0.1;
+            //		}
+            
+          fill(wr+30, wg+30, wb+30, 100);
+            circle(bx, by, sz);
+          //	sz=sz+0.1;
+            
+            if(bx-sz/2<40 || bx+sz/2>300 || by-sz/2<190 || by+sz/2>290)
+              {
+                tk=0;
+                sz=1;
+              }
+          }
+        
+        
+            ar[0] = x;
+            ar[1] = y;
+            return ar;
+        
+      }
+
+      //draws fish eyes
+      function fishEyes(x, y, mx, my)
+      {
+        let exl=-10;
+        let ey=y+my*4;
+        let exr=-10;
+        
+        
+        if (mx<0) //if on left side
+          {			
+            if((x+mx*5-5) > x-15)
+              {
+                exl=x+mx*4-5;
+              }
+            
+            if((x+mx*5+5)<x-8)
+              {
+                exr=x-8;
+              }
+            else
+              {
+                exr=x+mx*5+5;
+              }		
+            
+            
+          }
+        else //if on right side
+          {
+            if((x+mx*5+5) < x+15)
+              {
+                //circle(x+mx*4+5, y+my*4, 5);
+                exr=x+mx*4+5;
+              }
+            if((x+mx*5-5)>x+8)
+              {
+              //	circle(x+8, y+my*5, 5);
+                exl=x+8;
+              }
+            else
+              {
+                //circle(x+mx*5-5, y+my*5, 5);
+                exl=x+mx*5-5;
+              }			
+          }
+        
+        if (my<0)
+          {
+            if(y+my*4<y-8)
+              {
+                ey=y-8;
+              }
+          }
+        else 
+          {
+            if(y+my*4>y+8)
+              {
+                ey=y+8;
+              }
+          }
+        
+        fill(0);
+        circle(exl, ey, 3);
+        circle(exr, ey, 3);
+        
+        
+        
+      }
+
+      //draws fish tail
+      function fishTail(x, y, mx, my, d)
+      {
+        //variables: center x, center y, tail edge x, upper y, lower y
+        let cx=x;
+        let cy=y;
+        let tx=x;
+        let uy=x-13;
+        let dy=y+13;
+        
+        //
+        if(my<-2)
+          {
+            my=-2;
+          }
+        else if(my>2)
+          {
+            my=2;
+          }
+      //	print(my);
+        
+        //modifying tail x
+        cx=x-mx*4;
+        tx=x-mx*10;
+        if(cx<x-12)
+          {
+            cx=x-12;
+          }
+        else if(cx>x+12)
+          {
+            cx=x+12;
+          }
+        if(tx<x-25)
+          {
+            tx=x-25;
+          }
+        else if(tx>x+25)
+          {
+            tx=x+25;
+          }
+        
+        //modifying tail y
+        cy=y-my*3;
+        uy=cy-my*2-10;
+        dy=cy-my*2+10;
+        
+        if(cy<y-5)
+          {
+            cy=y-5;
+          }
+        else if(cy>y+5)
+          {
+            cy=y+5;
+          }
+        
+        
+        fill(250*d, 200*d, 100*d);
+        triangle(cx, cy, tx, uy, tx, dy);
+      }
+
+      //draws fish tank
+      function dTank(d)
+      {
+        //variables: length, height, x-coordinate, y-coordinate
+        let tl = 260;
+        let th = 160;
+        let x = 40;
+        let y = 160
+        
+        let rr = random(-10, 10)/5;
+        let rg = random(-10, 10)/5;
+        let rb = random(-10, 10)/5;
+        
+        wr=wr+rr;
+        wg=wg+rg;
+        wb=wb+rb;
+        
+        if(wr<120 && wg<160 && wg<255)
+          {
+            if(wr<90)
+              {
+                wr=95;
+              }
+            if(wg<100)
+              {
+                wg=105;
+              }
+            if(wb<200)
+            {
+              wb=205;
+            }
+          }
+        else if(wr>120)
+          {
+            wr=115;
+          }
+        else if(wg>160)
+          {
+            wg=155;
+          }
+        else if(wb>255)
+          {
+            wb=250;
+          }
+        
+        stroke(0);
+        
+        //tank
+        fill(200*d, 200*d, 250*d);
+        rect(x, y, tl, th);
+        
+        //water
+        
+        fill(wr*(d*0.9), wg*(d*0.9), wb*(d*0.9));
+        rect(x, y+20, tl, th-20);
+        
+        //sand
+        fill(250*d, 200*d, 100*d);
+        rect(x, y+th, tl, -30);
+      }
+
+      //draws light switch and turns it on and off
+      function lightSwitch(d)
+      {
+        stroke(0);
+        fill(255*dk);
+        rect(320, 200, 40, 60);
+        rect(330, 210, 20, 40);
+        if(MouseX>320 && MouseX<360 && MouseY>200 && MouseY<260 && mouseIsPressed)
+          {
+            //print(msd);
+            if(msd==0)
+              {
+                if(d==1 )
+                {
+                  d=0.5;
+                msd=1;
+                }
+                else 
+                {
+                  d=1;
+                  msd=1;
+                  
+                }
+              
+              }
+            
+          
+            
+            
+          }
+          if(mouseIsPressed==false)
+              {
+                msd=0;
+                //print("a");
+              }
+        
+        ar[2]=d;
+            ar[3]=msd;
+            return ar;
+      }
+
+      //draws room background
+      function roomBackground(d)
+      {
+        background(230*d, 250*d, 230*d);
+        stroke(0);
+        
+        //shelf
+        fill(200*d, 150*d, 100*d);
+        rect(-20, 100, 260, 20)
+        
+        //table
+          rect(-20, 320, 360, 60)
+        
+        //door
+        rect(400, 40, 220, 400);
+        
+        //fish food
+        fill(255*d, 100*d, 100*d);
+        rect(60, 30, 50, 70);
+        
+        fill(255*d, 255*d, 255*d);
+        rect(60, 30, 50, 10);
+        rect(60, 60, 50, 20);
+        
+        noStroke();
+        fill(0);
+        //textFont(fontOswald);
+        text("Fish Food", 65, 75);
+        
+        
+      }
+
+      //draws grid as guide/reference
+      function guides(s)
+      {
+        
+        for(q=0; q<width; q=q+s)
+          {
+            stroke(0);
+            if(floor(q/100)==q/100)
+              {
+                strokeWeight(3)
+                //print("2");
+              }
+            else
+              {
+                strokeWeight(1)
+                //print("1");
+              }
+            
+            line(q, 0, q, height);
+          }
+        
+        for(q=0; q<height; q=q+s)
+          {
+            
+              if(floor(q/100)==q/100)
+              {
+                strokeWeight(3)
+                //print("2");
+              }
+            else
+              {
+                strokeWeight(1)
+                //print("1");
+              }
+            
+            line(0, q, width, q);
+          }
+        
+      }
+
+
+    </script>
+  </body>
+</html>

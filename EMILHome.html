@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Name Tag</title>
+    
+    <link rel="stylesheet" href="Site.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel="stylesheet">
+</head>
+
+
+<body>
+
+<body>
+
+    <header id="menu"></header>
+    <script src="Menu.js"></script>
+
+    
+    <section >
+        <div class="iframe-container" style="aspect-ratio: 5/3;">
+                <iframe  src="EMIL/EMIL.html" scrolling="no"></iframe>
+            </div>
+
+        <div class="flex-container">
+            
+            <div class="text-container" style="flex-basis: 100%;">
+            <h1 >Name Tag</h1>    
+            </div>
+            <div class="text-container" >
+            
+            <h2>Description</h2>
+            
+                <p>A name tag where each letter can be customized. This was made for my grade 10 coding final project with the p5.js library.</p>
+                
+            </div>
+            <div class="text-container">
+                <h2>Interactives</h2>
+            <t>Press "<b>SPACE</b>" to generate a random letter slot combination.</t>
+            <t><b>CLICK</b> a letter to change its design.</t>
+        </div> 
+            
+    
+        </div>
+    </section>
+
+
+    
+    
+    
+
+    
+    <section >
+        <div class="text-container" >
+     <h1 >Letter Designs</h1>
+     </div>
+    <div class="flex-container" style="align-items: flex-start;">
+        <div class="text-container">
+            
+            <t><b>Index 0: </b>Block letters, cycles through the color wheel</t>
+            <t><b>Index 1: </b>Round letters, rainbow background</t>
+            <t><b>Index 2: </b>*Unable to be displayed in browser</t>
+            <t><b>Index 3: </b>Light bulbs, light up from top to bottom</t>
+            <t><b>Index 4: </b>Letters in pixel font</t>
+            <t><b>Index 5: </b>Cloud of pixels that form the shape of the letter</t>
+            <t><b>Index 6: </b>Shadow font</t>
+            <t><b>Index 7: </b></t>
+            <t style="margin-left: 30px;"><b>E: </b>Neon tube</t>
+            <t style="margin-left: 30px;"><b>M: </b>Rainbows</t>
+            <t style="margin-left: 30px;"><b>I: </b>Chimney tube and smoke</t>
+            <t style="margin-left: 30px;"><b>L: </b>"Barber pole"</t>
+        </div> 
+    </div>
+    </section>
+
+
+
+
+    <section >
+        <h1>Process</h1>
+        <div class="flex-container">
+            <div class="text-container" >
+                <h2>Foundation</h2>
+                <mylist>
+                    <ul>
+                        <li>The grid function made for the <a href=FishSimHome.html>Fish Simulator</a> is reused to plan out the layout</li>
+                        <li>Each letter has its own function for drawing it</li>
+                        <li>The function's second parameter dictates its size (the first being its index)</li>
+                        <li>A test function is used to draw the letter larger to make designing it easier</li>
+                        <li>The code is then copied to its respective letter function</li>
+                    <ul>
+                </mylist>
+            </div>
+            
+            <div class="iframe-container" style="aspect-ratio: 11/8;">
+                <iframe  src="EMIL/EMIL1.html" scrolling="no"></iframe>
+            </div>
+    
+        </div>
+
+
+
+
+        <div class="flex-container">
+            
+            <div class="text-container" >
+                <h2>Changing letter designs</h2>
+                <mylist>
+                    <ul>
+                        <li>Detects mouse location when clicked to change the corresponding letter index</li>
+                        <li>The index is the first parameter of the letter drawing function (the second being size)</li>
+                        <li>A different design is drawn depending on the index</li>
+                        <li>This simplifies the process of adding new designs to a letter</li>
+                        
+                    <ul>
+                </mylist>
+            </div>
+
+            
+            <div class="iframe-container" style="aspect-ratio: 11/8;">
+                <iframe  src="EMIL/EMIL3.html" scrolling="no"></iframe>
+            </div>
+    
+            
+            
+        </div>
+
+
+
+        <div class="flex-container">
+            <div class="text-container" >
+                <h2>Arc Tool</h2>
+                <mylist>
+                    <ul>
+                        <li>I wanted to learn how to use the drawing function arc()</li>
+                        <li>Is parameters include the location coordinates, its size coordinates, the start and end angles of the arc, and an optional mode parameter</li>
+                        <li>Was used to draw indexs 1, 7E, and 7M</li>
+                    <ul>
+                </mylist>
+            </div>
+            
+            <div class="iframe-container" style="aspect-ratio: 11/8;">
+                <iframe  src="EMIL/EMIL4.html" scrolling="no"></iframe>
+            </div>
+    
+        </div>
+
+
+
+
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- --------------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+    <!-- --------------------------------------------------------------------------------------- -->
+
+
+ 
+</body>
+</html>

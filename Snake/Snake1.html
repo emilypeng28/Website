@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+
+    <style>
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+      } 
+      
+    </style>
+
+  </head>
+    
+  <body>
+    <button onClick="window.location.reload();" style="height: 20px;">Refresh</button>
+
+
+    <script>
+      //arrays with x and y position for snake units
+      const sx = [200];
+      const sy = [200];
+
+      //x and y position for apple
+      var a=0;
+      var ax=Math.round(Math.random()*20)*20; 
+      var ay=Math.round(Math.random()*20)*20;
+
+      //trigger for direction the snake goes from keyboard
+      var i=1 ;
+      var ii=0;
+
+      //other variables
+      var v=0;
+      var vx=0;
+      var vy=0;
+
+    
+
+
+      let myWidth=400;
+      let myHeight=400;
+
+         
+
+      function setup() {
+          
+      if (windowWidth/400 < (windowHeight-30)/400){
+          myWidth=windowWidth;
+          myHeight=400*windowWidth/400;
+      }
+      else {
+          myWidth=400*(windowHeight-30)/400;
+          myHeight=windowHeight-30;
+      }
+        createCanvas(myWidth, myHeight);
+
+        frameRate(30);
+      }
+
+
+
+      function windowResized() {
+              
+      if (windowWidth/400 < (windowHeight-30)/400){
+          myWidth=windowWidth;
+          myHeight=400*windowWidth/400;
+      }
+      else {
+          myWidth=400*(windowHeight-30)/400;
+          myHeight=windowHeight-30;
+      }
+          resizeCanvas(myWidth, myHeight);
+      }
+
+      //key functions
+      function keyTyped(){
+        
+          if( key == 'w' && i!=4) {
+            ii=i;
+            i=1;
+          }
+        if( key == 'a' && i!=3) {
+          ii=i;
+          i=2;
+        }
+          if( key == 'd' && i!=2) {
+          ii=i;
+            i=3;
+        }
+          if( key == 's' && i!=1) {
+            ii=i;
+            i=4;
+        }
+          
+          if( key == ' '){   
+          noLoop(); 
+          }
+        //testing button
+          if( key == 'z'){   
+          a=1; 
+          }
+        }
+
+
+      function test()
+      {
+        
+      }
+
+      function draw() 
+      {
+        scale(myWidth/400);
+        
+        
+        
+        background(230, 230, 230);
+        
+      
+        fill(260, 0, 0)
+        circle(ax, ay, 20);
+        
+        
+        
+        
+        /*   for (l=0; l<sx.count; l++)
+          {
+              sx[sx.count-l]=sx[sx.count-(l+1)];
+            
+            }
+        
+          for (l=0; l<sy.count; l++)
+          {
+              sy[sy.count-l]=sy[sy.count-(l+1)];
+            
+            }
+        */
+      
+        
+        
+        //if apple was eaten
+          if (v!=0)
+          {
+            sx.push(vx);
+            sy.push(vy);
+        v=v+1;
+            
+            if (v==6)
+              {
+            v=0;
+              }
+          
+          }
+        
+        //moving array elements
+        
+        for (q=1; q<sx.length; q++)
+      {
+          sx[(sx.length)-q]=sx[(sx.length)-(q+1)];
+        sy[(sy.length)-q]=sy[(sy.length)-(q+1)];
+        }  
+        
+      //   print(sx);
+      // if (sx[0]/20==Math.floor(sx[0]/20))
+        // {
+        var e=1;
+        for (w=1; w<(sx.length); w++)
+            {
+              
+          fill(0, 260, 0)
+        circle(sx[(sx.length)-w], sy[(sy.length)-w], 20);
+        
+        }
+      //  }
+        fill(0, 260, 0)
+        circle(sx[0], sy[0], 20);
+        /*
+        for (l=0; l<sx.count; l++)
+          {
+              fill(0, 260, 0)
+        circle(sx[l], sy[l], 20);
+              print("hello");
+            }
+          print(sx.count);
+        */
+        // when snake touches apple
+        if (  Math. abs(Math. abs(ax)- Math. abs(sx[0]))<5 && Math. abs(Math. abs(ay)- Math. abs(sy[0]))<5)
+          {
+          //  a=1;
+            
+          
+            
+            ax=Math.round(Math.random()*20)*20; 
+            ay=Math.round(Math.random()*20)*20; 
+          
+            v=1; 
+            vx=sx[0];
+            vy=sy[0];
+          }
+        
+
+        
+          
+        
+        
+      /* if(a==1)
+        {
+          
+          a=0;
+        }  */
+        
+        //print(ax);
+        
+        
+        
+        
+        //keyboard
+          if(i==1)
+            {
+              sy[0] -= 5;
+              if (ii==2)
+                {
+                  sx[0] = Math.floor(sx[0]/20)*20;
+                }
+              if (ii==3)
+                {
+                  sx[0] = Math.ceil(sx[0]/20)*20;
+                }
+              
+              
+              
+            }
+          if(i==2)
+            {
+              sx[0] -= 5;
+              
+              if (ii==4)
+                {
+                  sy[0] = Math.ceil(sy[0]/20)*20;
+                  ii=0;
+                }
+              if (ii==1)
+                {
+                  sy[0] = Math.floor(sy[0]/20)*20;
+                  ii=0;
+                }  
+            }
+          if(i==3)
+            {
+              sx[0] += 5;
+              if (ii==4)
+                {
+                  sy[0] = Math.ceil(sy[0]/20)*20;
+                  ii=0;
+                }
+              if (ii==1)
+                {
+                  sy[0] = Math.floor(sy[0]/20)*20;
+                  ii=0;
+                }  
+            }
+          if(i==4)
+            {
+              sy[0] += 5;
+              if (ii==3)
+                {
+                  sx[0] = Math.ceil(sx[0]/20)*20;
+                  ii=0;
+                }
+              if (ii==2)
+                {
+                  sx[0] = Math.floor(sx[0]/20)*20;
+                  ii=0;
+                }  
+            }
+        
+        
+      // temperary torusloop
+        if(sx[0]<0)
+          {
+            sx[0]=400;
+          }
+        if(sx[0]>400)
+          {
+            sx[0]=0;
+          }
+        if(sy[0]<0)
+          {
+            sy[0]=400;
+          }
+        if(sy[0]>400)
+          {
+            sy[0]=0;
+          }
+        
+        
+      
+        
+        
+        
+          //testing   
+        /*
+          print(i);
+        print(ii);  */
+      // print(sx);
+      // print(sy);
+        
+      // const aaaaa = [1, 2, 3, 4, 5];
+      //  print(aaaaa.length)
+        
+
+        for(r=1; r<sx.length; r++)
+        {
+        if (  Math. abs(Math. abs(sx[r])- Math. abs(sx[0]))<5 && Math. abs(Math. abs(sy[r])- Math. abs(sy[0]))<5)
+          {    
+            fill(200, 200, 200);
+            rect(50, 125, 300, 150);
+            noLoop();
+            
+          }
+        
+        }
+        
+        
+        
+        
+        
+      }
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+    
+  
+  </body>
+</html>

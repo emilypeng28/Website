@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="800=device-800, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+
+    <style>
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+      } 
+    </style>
+
+  </head>
+    
+  <body>
+    <button onClick="window.location.reload();" style="height: 20px;">Refresh</button>
+
+    <div>
+      <script>
+        
+let myWidth=800;
+let myHeight=400;
+
+let MouseX = 0;
+let MouseY = 0;
+
+//setup function----------
+function setup() {
+	
+if (windowWidth/800 < (windowHeight-30)/400){
+    myWidth=windowWidth;
+    myHeight=400*windowWidth/800;
+}
+else {
+    myWidth=800*(windowHeight-30)/400;
+    myHeight=windowHeight-30;
+}
+    
+createCanvas(myWidth, myHeight);
+
+
+	frameRate(20);
+}
+
+
+
+function windowResized() {
+
+
+if (windowWidth/800 < (windowHeight-30)/400){
+    myWidth=windowWidth;
+    myHeight=400*windowWidth/800;
+}
+else {
+    myWidth=800*(windowHeight-30)/400;
+    myHeight=windowHeight-30;
+}
+    
+  resizeCanvas(myWidth, myHeight);
+
+  
+}
+let r=255;
+let g=0; 
+let b=0; 
+
+let glow=0;
+
+let startIndex=4;
+
+let indexE=startIndex;
+let indexM=startIndex;
+let indexI=startIndex;
+let indexL=startIndex;
+
+function mouseClicked()
+{
+	if(MouseY>100 && MouseY<300)
+		{
+			if(MouseX<200)
+				{
+					indexE=indexE+1;
+	
+				}
+			else if(MouseX<400)
+				{
+					indexM=indexM+1;
+	
+				}
+			else if(MouseX<600)
+				{
+					indexI=indexI+1;
+	
+				}
+			else
+				{
+					indexL=indexL+1;
+				}
+		}
+	
+	
+	
+	
+	let end=5;
+	if(indexE>=end)
+		{
+			indexE=0;
+		}
+	if(indexM>=end)
+		{
+			indexM=0;
+		}
+	if(indexI>=end)
+		{
+			indexI=0;
+		}
+	if(indexL>=end)
+		{
+			indexL=0;
+		}
+}
+
+function draw() {
+
+      
+scale(myWidth/800);
+MouseX=800*mouseX/myWidth;
+MouseY=800*mouseY/myWidth;
+
+
+
+
+	background(255);
+
+	fill(200);
+	
+	drawE(indexE, 0.5);
+	drawM(indexM, 0.5);
+	drawI(indexI, 0.5);
+	drawL(indexL, 0.5);
+	
+	const indexes=[indexE, indexM, indexI, indexL];
+	console.log(indexes)
+	
+	//glow=glow+1/24;
+				if(glow>=7)
+					{
+						glow=0; 
+					}
+	
+	colorWheel();
+	
+	//tDraw(0, 1);
+	
+
+	
+	noFill();
+	square(200, 0, 400);
+	guides(50, 4)
+	//boxReference(200);
+
+}
+
+
+
+
+
+function tDraw(index, size)
+{
+	let x=800/2;
+	let y=400/2;
+	if(index==0)
+		{
+		//console.log("a");
+				//console.log("a");
+			
+			
+			const row1=[0, 1, 1, 1, 1, 1, 0];
+			const row2=[0, 1, 1, 0, 1, 1, 0];
+			const row3=[0, 1, 1, 0, 0, 0, 0];
+			const row4=[0, 1, 1, 1, 1, 0, 0];
+			const row5=[0, 1, 1, 0, 0, 0, 0];
+			const row6=[0, 1, 1, 0, 1, 1, 0];
+			const row7=[0, 1, 1, 1, 1, 1, 0];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+			
+			for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											fill(0);
+											ellipse(x-150+50*q, y-150+50*w, 50*size);
+											
+											
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				}
+
+			
+		
+		}
+
+			
+			//console.log(grid);
+		
+			
+			
+			
+		
+		
+}
+
+
+function drawE(index, size)
+{
+	let x=100;
+	let y=200;
+	if(index==0)
+		{
+			//console.log("a");
+			
+			stroke(0);
+			strokeWeight(10);
+			
+			//horizontal lines
+			rect(x-100*size, y-150*size, 200*size, 50*size);
+			rect(x-100*size, y+100*size, 200*size, 50*size);
+			rect(x-100*size, y-30*size, 150*size, 50*size);
+			
+			//vertical lines
+			rect(x-100*size, y-150*size, 50*size, 250*size);
+			
+			
+			noStroke();
+			fill(r, g, b);
+			
+			
+			//horizontal lines
+			rect(x-100*size, y-150*size, 200*size, 50*size);
+			rect(x-100*size, y+100*size, 200*size, 50*size);
+			rect(x-100*size, y-30*size, 150*size, 50*size);
+			
+			//vertical lines
+			rect(x-100*size, y-150*size, 50*size, 250*size);
+			
+			strokeWeight(1);
+		}
+	else if(index==1)
+		{
+		//console.log("a");
+			rainbowBackground(0);
+			
+			stroke(255);
+			strokeWeight(25)
+			noFill()
+			//fill(255)
+			//arcs 
+			arc(x, y-50*size, 200*size, 200*size, PI, PI + PI);
+			arc(x, y+50*size, 200*size, 200*size, 0, PI);
+			
+			//fill(0,255,50);
+			
+			 //circle(x, y-50*size, 100*size);
+			
+		//	fill(0,50,255);
+			//circle(x, y+50*size, 100*size);
+	
+			//fill(0, 255, 255, 100)
+			//rect(x-50*size, y-30*size, 250*size, 50*size);
+			
+			fill(255);
+			
+			strokeWeight(1);
+			//straight lines
+			rect(x-100*size, y-30*size, 100*size, 50*size);
+			rect(x-125*size, y-50*size, 50*size, 100*size);
+			
+			//other
+			circle(x, y-5*size, 25);
+			
+			
+			
+			
+		
+		}
+	else if(index==2)
+		{
+				text("design unavailable", x, y);
+		}
+	else if(index==3)
+		{
+			
+		//console.log("a");
+			
+			
+			const row1=[0, 1, 1, 1, 1, 1, 0];
+			const row2=[0, 1, 1, 0, 1, 1, 0];
+			const row3=[0, 1, 1, 0, 0, 0, 0];
+			const row4=[0, 1, 1, 1, 1, 0, 0];
+			const row5=[0, 1, 1, 0, 0, 0, 0];
+			const row6=[0, 1, 1, 0, 1, 1, 0];
+			const row7=[0, 1, 1, 1, 1, 1, 0];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+		//	console.log(grid);
+			
+			for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											//fill(0);
+											//ellipse(x-150+50*q, y-150+50*w, 50*size);
+											let ox=x-150*size;
+											let oy=y-150*size;
+											
+											fill(0);
+										ellipse(ox+q*50*size, oy+w*50*size, 10*size, 10*size);
+											noFill();
+											ellipse(ox+q*50*size, oy+w*50*size, 45*size, 45*size);
+											
+											if(w==floor(glow))
+												{
+													fill(255, 255, 100, 150);
+													noStroke();
+											ellipse(ox+q*50*size, oy+w*50*size, 55*size, 55*size);
+											ellipse(ox+q*50*size, oy+w*50*size, 20*size, 20*size);
+												} 
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				
+										
+				}
+
+			
+			//console.log(grid);
+		
+			
+			
+		}
+	else if(index==4)
+		{
+			const row1=[0, 1, 1, 1, 1, 1, 0];
+			const row2=[1, 0, 0, 0, 0, 0, 1];
+			const row3=[1, 0, 0, 0, 0, 0, 1];
+			const row4=[1, 1, 1, 1, 1, 1, 0];
+			const row5=[1, 0, 0, 0, 0, 0, 0];
+			const row6=[1, 0, 0, 0, 0, 0, 1];
+			const row7=[0, 1, 1, 1, 1, 1, 0];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+		//	console.log(grid);
+			
+			for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											//fill(0);
+											//ellipse(x-150+50*q, y-150+50*w, 50*size);
+											let ox=x-175*size;
+											let oy=y-175*size;
+											
+											fill(0);
+										square(ox+q*50*size, oy+w*50*size, 50*size);
+											
+										
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				
+										
+				}
+
+			
+
+			
+		}
+		
+		
+		
+}
+
+function drawM(index, size)
+{
+	let x=300;
+	let y=400/2;
+	if(index==0)
+		{
+			//console.log("a");
+			
+			stroke(0);
+			strokeWeight(10);
+			
+			//horizontal lines
+			rect(x-30*size, y, 60*size, 50*size);
+			
+			//vertical lines
+			rect(x-150*size, y-150*size, 50*size, 300*size);
+			rect(x+100*size, y-150*size, 50*size, 300*size);
+			
+			//other straight lines
+			quad(x-100*size, y-150*size, x-130*size, y-100*size, x-30*size, y+50*size, x, y);
+			quad(x+100*size, y-150*size, x+130*size, y-100*size, x+30*size, y+50*size, x, y);
+			
+			noStroke();
+			fill(r, g, b);
+			
+			
+			//horizontal lines
+		rect(x-30*size, y, 60*size, 50*size);
+			
+			//vertical lines
+			rect(x-150*size, y-150*size, 50*size, 300*size);
+			rect(x+100*size, y-150*size, 50*size, 300*size);
+			
+			//other straight lines
+			quad(x-100*size, y-150*size, x-130*size, y-100*size, x-30*size, y+50*size, x, y);
+			quad(x+100*size, y-150*size, x+130*size, y-100*size, x+30*size, y+50*size, x, y);
+			
+			strokeWeight(1);
+		}
+	else if(index==1)
+		{
+		//console.log("a");
+			
+			rainbowBackground(200);
+			
+			stroke(255);
+			strokeWeight(25);
+			noFill();
+			
+			//arcs 
+			arc(x-75*size, y-50*size, 150*size, 200*size, PI, PI + PI);
+			arc(x+75*size, y-50*size, 150*size, 200*size, PI, PI + PI);
+			
+			//straight lines
+			line(x-150*size, y-50*size, x-150*size, y+150*size);
+			line(x+150*size, y-50*size, x+150*size, y+150*size);
+			line(x, y-50*size, x, y+150*size);
+			
+			
+			strokeWeight(1);
+			
+			
+			
+			
+			
+			
+		
+		}
+	else if(index==2)
+		{
+			text("design unavailable", x, y);		
+		}
+	else if(index==3)
+		{
+				
+			
+			
+			const row1=[1, 1, 1, 1, 1, 1, 1];
+			const row2=[1, 1, 1, 1, 1, 1, 1];
+			const row3=[1, 1, 0, 1, 0, 1, 1];
+			const row4=[1, 1, 0, 1, 0, 1, 1];
+			const row5=[1, 1, 0, 0, 0, 1, 1];
+			const row6=[1, 1, 0, 0, 0, 1, 1];
+			const row7=[1, 1, 0, 0, 0, 1, 1];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+		//	console.log(grid);
+			
+			for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											//fill(0);
+											//ellipse(x-150+50*q, y-150+50*w, 50*size);
+											let ox=x-150*size;
+											let oy=y-150*size;
+											
+											fill(0);
+										ellipse(ox+q*50*size, oy+w*50*size, 10*size, 10*size);
+											noFill();
+											ellipse(ox+q*50*size, oy+w*50*size, 45*size, 45*size);
+											
+											if(w==floor(glow))
+												{
+													fill(255, 255, 100, 150);
+													noStroke();
+											ellipse(ox+q*50*size, oy+w*50*size, 55*size, 55*size);
+											ellipse(ox+q*50*size, oy+w*50*size, 20*size, 20*size);
+												} 
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				
+										
+				}
+
+			
+
+			
+		}
+	else if(index==4)
+		{
+			
+			const row1=[0, 1, 1, 0, 1, 1, 0];
+			const row2=[1, 0, 0, 1, 0, 0, 1];
+			const row3=[1, 0, 0, 1, 0, 0, 1];
+			const row4=[1, 0, 0, 1, 0, 0, 1];
+			const row5=[1, 0, 0, 1, 0, 0, 1];
+			const row6=[1, 0, 0, 1, 0, 0, 1];
+			const row7=[1, 0, 0, 1, 0, 0, 1];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+			
+			for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											//fill(0);
+											//ellipse(x-150+50*q, y-150+50*w, 50*size);
+											let ox=x-175*size;
+											let oy=y-175*size;
+											
+											fill(0);
+										square(ox+q*50*size, oy+w*50*size, 50*size);
+											
+										
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				
+										
+				}
+
+		}
+}
+
+
+function drawI(index, size)
+{
+	let x=500;
+	let y=400/2;
+	
+	if(index==0)
+		{
+			//console.log("a");
+			
+			stroke(0);
+			strokeWeight(10);
+			
+			//horizontal lines
+			rect(x-100*size, y-150*size, 200*size, 50*size);
+			rect(x-100*size, y+100*size, 200*size, 50*size);
+			
+			//vertical lines
+			rect(x-25*size, y-150*size, 50*size, 300*size);
+		
+			noStroke();
+			fill(r, g, b);
+			
+			
+				//horizontal lines
+			rect(x-100*size, y-150*size, 200*size, 50*size);
+			rect(x-100*size, y+100*size, 200*size, 50*size);
+			
+			//vertical lines
+			rect(x-25*size, y-150*size, 50*size, 300*size);
+		
+			strokeWeight(1);
+		}
+	else if(index==1)
+		{
+			
+			rainbowBackground(400);
+			
+		//console.log("a");
+			
+			stroke(255);
+			strokeWeight(25);
+			noFill();
+			
+			//arcs 
+			arc(x, y-100*size, 100*size, 100*size, PI, PI + PI);
+			arc(x-100*size, y+0*size, 300*size, 300*size, 0, HALF_PI);
+			arc(x+100*size, y+0*size, 300*size, 300*size, HALF_PI, PI);
+			arc(x-100*size, y+100*size, 100*size, 100*size, HALF_PI, PI);
+			arc(x+100*size, y+100*size, 100*size, 100*size, 0, HALF_PI);
+			
+			//straight lines
+			line(x-50*size, y-100*size, x-50*size, y)
+			line(x+50*size, y-100*size, x+50*size, y)
+			
+			strokeWeight(1);
+			
+			
+		}
+	else if(index==2)
+		{
+			text("design unavailable", x, y);	
+		}
+	else if(index==3)
+		{
+				
+			const row1=[0, 1, 1, 1, 1, 1, 0];
+			const row2=[0, 0, 1, 0, 1, 0, 0];
+			const row3=[0, 0, 1, 0, 1, 0, 0];
+			const row4=[0, 0, 1, 0, 1, 0, 0];
+			const row5=[0, 0, 1, 0, 1, 0, 0];
+			const row6=[0, 0, 1, 0, 1, 0, 0];
+			const row7=[0, 1, 1, 1, 1, 1, 0];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+		//	console.log(grid);
+			
+			for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											//fill(0);
+											//ellipse(x-150+50*q, y-150+50*w, 50*size);
+											let ox=x-150*size;
+											let oy=y-150*size;
+											
+											fill(0);
+										ellipse(ox+q*50*size, oy+w*50*size, 10*size, 10*size);
+											noFill();
+											ellipse(ox+q*50*size, oy+w*50*size, 45*size, 45*size);
+											
+											if(w==floor(glow))
+												{
+													fill(255, 255, 100, 150);
+													noStroke();
+											ellipse(ox+q*50*size, oy+w*50*size, 55*size, 55*size);
+											ellipse(ox+q*50*size, oy+w*50*size, 20*size, 20*size);
+												} 
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				
+										
+				}
+
+			
+
+			
+		}
+	else if(index==4)
+		{
+			
+			const row1=[1, 1, 1, 1, 1, 1, 1];
+			const row2=[0, 0, 0, 1, 0, 0, 0];
+			const row3=[0, 0, 0, 1, 0, 0, 0];
+			const row4=[0, 0, 0, 1, 0, 0, 0];
+			const row5=[0, 0, 0, 1, 0, 0, 0];
+			const row6=[0, 0, 0, 1, 0, 0, 0];
+			const row7=[1, 1, 1, 1, 1, 1, 1];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+			
+			for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											//fill(0);
+											//ellipse(x-150+50*q, y-150+50*w, 50*size);
+											let ox=x-175*size;
+											let oy=y-175*size;
+											
+											fill(0);
+										square(ox+q*50*size, oy+w*50*size, 50*size);
+											
+										
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				
+										
+				}
+
+		}
+}
+
+
+function drawL(index, size)
+{
+	let x=700;
+	let y=400/2;
+	if(index==0)
+		{
+			//console.log("a");
+			
+			stroke(0);
+			strokeWeight(10);
+		
+			//horizontal lines
+			rect(x-100*size, y+100*size, 200*size, 50*size);
+			
+			//vertical lines
+			rect(x-100*size, y-150*size, 50*size, 300*size);
+		
+			
+			noStroke();
+			fill(r, g, b);
+			
+			//console.log(r, g, b);
+			//horizontal lines
+			rect(x-100*size, y+100*size, 200*size, 50*size);
+			
+			//vertical lines
+			rect(x-100*size, y-150*size, 50*size, 300*size);
+		
+			strokeWeight(1);
+		}
+	else if(index==1)
+		{
+		//console.log("a");
+			rainbowBackground(600);
+			
+			stroke(255);
+			strokeWeight(25);
+			noFill();
+			
+			//arcs 
+		
+			arc(x-50*size, y+100*size, 100*size, 100*size, HALF_PI, PI);
+			
+			
+			//straight lines
+			line(x-100*size, y-150*size, x-100*size, y+100*size);
+			line(x-50*size, y+150*size, x+100*size, y+150*size);
+			
+			strokeWeight(1);
+		}
+	else if(index==2) 
+		{
+			
+            text("design unavailable", x, y);			
+
+		}
+	else if(index==3)
+		{
+				const row1=[1, 1, 1, 1, 0, 0, 0];
+			const row2=[0, 1, 1, 0, 0, 0, 0];
+			const row3=[0, 1, 1, 0, 0, 0, 0];
+			const row4=[0, 1, 1, 0, 0, 0, 0];
+			const row5=[0, 1, 1, 0, 0, 0, 0];
+			const row6=[0, 1, 1, 0, 1, 1, 0];
+			const row7=[0, 1, 1, 1, 1, 1, 0];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+		//	console.log(grid);
+			
+			
+		for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											//fill(0);
+											//ellipse(x-150+50*q, y-150+50*w, 50*size);
+											let ox=x-150*size;
+											let oy=y-150*size;
+											
+											fill(0);
+										ellipse(ox+q*50*size, oy+w*50*size, 10*size, 10*size);
+											noFill();
+											ellipse(ox+q*50*size, oy+w*50*size, 45*size, 45*size);
+											
+											if(w==floor(glow))
+												{
+													fill(255, 255, 100, 150);
+													noStroke();
+											ellipse(ox+q*50*size, oy+w*50*size, 55*size, 55*size);
+											ellipse(ox+q*50*size, oy+w*50*size, 20*size, 20*size);
+												} 
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				
+										
+				}
+
+			
+
+			
+		
+	
+		}
+	else if(index==4)
+		{
+				
+			const row1=[1, 0, 0, 0, 0, 0, 0];
+			const row2=[1, 0, 0, 0, 0, 0, 0];
+			const row3=[1, 0, 0, 0, 0, 0, 0];
+			const row4=[1, 0, 0, 0, 0, 0, 0];
+			const row5=[1, 0, 0, 0, 0, 0, 0];
+			const row6=[1, 0, 0, 0, 0, 0, 0];
+			const row7=[1, 1, 1, 1, 1, 1, 1];
+			
+			const grid=[row1, row2, row3, row4, row5, row6, row7];
+			
+			
+			for(w=0; w<7; w=w+1)
+				{
+				//console.log(w/50-1);
+								for(q=0; q<7; q=q+1)
+								{
+							//	console.log((q/50/size));
+									
+									if(grid[w][q]!=0)
+										{
+											//console.log(w, q);
+											
+											//fill(0);
+											//ellipse(x-150+50*q, y-150+50*w, 50*size);
+											let ox=x-175*size;
+											let oy=y-175*size;
+											
+											fill(0);
+										square(ox+q*50*size, oy+w*50*size, 50*size);
+											
+										
+											stroke(0);
+									/*		*/
+										} 
+								
+								//		ellipse(q, w, 30, 30);			
+								}
+
+										
+				
+										
+				}
+
+		}
+}
+
+function colorWheel()
+{
+	let step=5;
+	if(r>=255 && g<=255 && b<=0)
+		{
+			//console.log("A");
+			g=g+step;
+			//console.log(g);
+		}
+	else if(r>=0 && g>=255 & b<=0)
+		{
+			r=r-step;
+		}
+	else if(g>=255 && b<=255 && r<=0)
+		{
+			b=b+step;
+		}
+	else if(g>=0 && b>=255 & r<=0)
+		{
+			g=g-step;
+		}
+	else if(b>=255 && r<=255 && g<=0)
+		{
+			r=r+step;
+		}
+	else if(b>=0 && r>=255 & g<=0)
+		{
+			b=b-step;
+		}
+	
+}
+
+function rainbowBackground(start)
+{
+	//rect(0, 100, 800, 200);
+	
+	let r=255;
+	let g=0;
+	let b=0;
+	let step=1530/200;
+	for(i=100; i<300; i=i+1)
+		{
+			stroke(r, g, b);
+			line(start, i, start+200, i);
+				if(r>=255 && g<=255 && b<=0)
+		{
+			//console.log("A");
+			g=g+step;
+			//console.log(g);
+		}
+	else if(r>=0 && g>=255 & b<=0)
+		{
+			r=r-step;
+		}
+	else if(g>=255 && b<=255 && r<=0)
+		{
+			b=b+step;
+		}
+	else if(g>=0 && b>=255 & r<=0)
+		{
+			g=g-step;
+		}
+	else if(b>=255 && r<=255 && g<=0)
+		{
+			r=r+step;
+		}
+	else if(b>=0 && r>=255 & g<=0)
+		{
+			b=b-step;
+		}
+		}
+}
+
+function initial()
+{
+	r=255;
+	g=0;
+	b=0;
+	
+	glow=0;
+}
+
+function boxReference(step)
+{
+	noFill();
+	for(i=0; i<800; i=i+step)
+		{
+			square(i, (400/2)-(step/2), step);
+			
+		}
+}
+
+
+/**
+* draws a grid as guide/reference
+*
+*@param {num} - gridSize - the density of the grid
+*@param {num} - interval - how often a line in the grid should be bolded
+*
+*/
+function guides(gridSize, interval)
+{
+	noFill();
+	//vertical lines
+	for(q=0; q<800; q=q+gridSize)
+		{
+			//drawing lines
+			stroke(0);
+			
+			//makes a thicker line every 5 lines
+			if(floor(q/(interval*gridSize))==q/(interval*gridSize))
+			{
+				strokeWeight(3)
+			}
+			else
+			{
+				strokeWeight(1)
+			}
+			
+			//draws line
+			line(q, 0, q, 400);
+		}
+	
+	//horzontal lines
+	for(q=0; q<400; q=q+gridSize)
+		{
+			//makes line thicker every 5 lines
+			if(floor(q/(interval*gridSize))==q/(interval*gridSize))
+			{
+				strokeWeight(3)
+			}
+			else
+			{
+				strokeWeight(1)
+			}
+	
+			//draws line
+			line(0, q, 800, q);
+		}
+	
+}
+
+
+      </script>
+  </div>
+    
+  </body>
+</html>

@@ -1,0 +1,72 @@
+:root {
+    --base-color: white;
+    --text-color: black;
+    --primary-color: #ffc06e;
+    --secondary-color: #8D8DFF;
+    --color-1: #aaaaaa;
+    --color-2: #888888;
+}
+
+/*Unset default values*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Base navigation styling */
+nav {
+  background-color: #333;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; /* Aligns top-level items horizontally */
+}
+
+.navbar a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 15px 20px;
+}
+
+.navbar a:hover {
+  background-color: #555;
+}
+
+/* Core logic for dropdowns */
+.dropdown-item {
+  position: relative; /* Anchor point for the absolutely positioned menu */
+}
+
+.dropdown-menu {
+  display: none;        /* Hide the dropdown menu by default */
+  position: absolute;   /* Float menu over surrounding content */
+  top: 100%;           /* Align perfectly underneath parent item */
+  left: 0;
+  background-color: #444;
+  min-width: 160px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 100;         /* Ensure it stays on top of other content */
+}
+
+/* Force dropdown sub-items to stack vertically */
+.dropdown-menu li {
+  width: 100%;
+}
+
+.dropdown-menu a {
+  padding: 12px 20px;
+}
+
+/* The Trigger: Show menu on parent hover */
+.dropdown-item:hover .dropdown-menu {
+  display: block;
+}

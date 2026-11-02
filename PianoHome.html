@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Music</title>
+    
+    <link rel="stylesheet" href="Site.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel="stylesheet">
+</head>
+
+
+<body>
+
+<body>
+
+    <header id="menu"></header>
+    <script src="Menu.js"></script>
+
+
+    <section>
+        <div class="flex-container">
+            <div class="text-container" >
+                <h1 style="padding-bottom: .2em;">Petal Dance</h1>
+                <h2 >Toby Fox - 17. Deltarune OST</h2>
+                <p>This is a cover of the song Petal Dance. It is from Chapter 5 of the game Deltarune, and composed by Toby Fox. </p>
+            </div>
+            <video controls loop>
+            <source src="Piano/PetalDancePianoCover1.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div style="width: 90%; padding-top: 1rem;">
+        <button  id="PetalDanceButton" class="button" onclick="show(this.id)">See more</button>
+        </div>
+        <div class="extra" id="PetalDanceDiv">
+            <div class="text-container" >
+                <h2 >Credits</h2>
+                <p>Song from 17. Deltarune OST</p>
+                <p>Song composed by Toby Fox</p>
+                <p>Based on <a href="https://musescore.com/user/111706727/scores/35249453" target="blank">finnpham's arrangement<a> on MuseScore</p>
+                <p>Changes to arrangement by me</p>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section>
+        <div class="flex-container">
+            <div class="text-container" >
+                <h1 style="padding-bottom: .2em;">Undertale</h1>
+                <h2 >Toby Fox - 71. Undertale OST</h2>
+                <p>This is a cover of the song Undertale. It is from the game Undertale, and composed by Toby Fox. The song, Undertale, is my personal favorite song of its OST. I hope you enjoy this cover!</p>
+                <video controls loop>
+                <source src="Piano/Undertale - Piano Cover.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+
+        <div style="width: 90%; padding-top: 1rem;">
+        <button  id="UndertaleAButton" class="button" onclick="show(this.id)">See more</button>
+        </div>
+        <div class="extra" id="UndertaleADiv">
+            <div class="text-container" >
+                <h2 >Credits</h2>
+                <t>Song from game Undertale</t>
+                <t>Song composed by Toby Fox</t>
+                <t>Arrangement by <a href="https://musescore.com/user/5174461/scores/1321576?srsltid=AfmBOoroyUzq9Q_1Q9I38PleG-1ky6wzSM3LMvdKOgLwii48GT3FZfYh" target="blank">Stoh<a> on MuseScore</t>
+                <t>Minimal changes to arrangement by me</t>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+            function show(id){
+                const element = document.getElementById(id);
+                const container = document.getElementById(id.slice(0, -6) + "Div");
+                if (element.textContent == "See more"){
+                    element.textContent = "See less";
+                    container.style.display = "flex";
+                }
+                else {
+                    element.textContent = "See more";
+                    container.style.display = "none";
+                }
+                
+            }
+    </script>
+
+</body>
+</html>
