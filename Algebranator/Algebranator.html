@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+    <title>Algebranator</title>
+
+    <link rel="stylesheet" href="Algebranator.css">
+
+</head>
+<body>
+    <h1>Algebranator</h1>
+
+
+    <p>Input the number of problems you want and press <b>ENTER</b>, then click <b>Generate Problems</b>. If you wish to see the answers, click <b>Show Answers</b>. </p>
+    <p>The generator will output simple addition, subtraction, multiplication, and division problems, helping children become familiar with the basic opporations and build a good foundation in algebra.</p>
+
+   
+    
+<br>
+    <input type="text" id="number" name="Quantity" >
+    <button onClick="enter()">ENTER</button>
+    <p id="return"></p>
+
+
+
+
+<br>
+
+    <button onClick="problem(qu)">Generate Problems</button>
+
+    <button onClick="solution()">Show Answers</button>
+
+
+    <p id="show"></p> 
+    
+
+    <br>
+
+    <p id="solution"></p>
+
+    <script>
+     
+
+
+
+
+
+
+
+
+
+
+        //have button, which generates problems
+var qu="A";
+
+const ar1=[];
+const ar2=[];
+let ans=null;
+let eq=0;
+let pr="";
+let ol=0;
+
+        function problem(lp) 
+        {
+         
+            if (qu=="A")
+        {
+            document.getElementById("return").style.color = "red";
+            document.getElementById("return").innerHTML = "Insert a Number and Press ENTER";
+        }
+            
+            ar1.splice(0, ar1.length);
+            ar2.splice(0, ar2.length);
+        
+
+        ol=lp;
+
+
+
+
+
+            for(i=0; i<lp; i++)
+        {
+            
+             num1=0;
+            let num2=0;
+            let op=Math.floor(Math.random()*4)
+
+            if(op<2)
+        {
+             num1=Math.floor(Math.random()*21);
+             num2=Math.floor(Math.random()*21);
+        }
+        else
+        {
+            num1=Math.floor(Math.random()*11);
+             num2=Math.floor(Math.random()*11);
+        }
+            
+            
+            let pt1=num1.toString();
+            let pt2=num2.toString();
+
+
+            
+            if(op==0 || ar1[0]==null)
+        {
+            eq=" "+pt1+"+"+pt2+"=___";
+            ans="  "+pt1+"+"+pt2+"="+(num1+num2)+" ";
+        }
+        else if(op==1)
+        {
+
+            if(num2>num1)
+        {
+            eq=" "+pt2+"-"+pt1+"=___";
+            ans="  "+pt2+"-"+pt1+"="+(num2-num1)+" ";
+        }
+        else 
+        {
+            eq=" "+pt1+"-"+pt2+"=___";
+            ans="  "+pt1+"-"+pt2+"="+(num1-num2)+" ";
+        }
+            
+        }
+        else if(op==2)
+        {
+            eq=" "+pt1+"×"+pt2+"=___";
+            ans="  "+pt1+"×"+pt2+"="+(num1*num2)+" ";
+        }
+        else
+        {
+            if (pt2==0)
+        {
+            pt2=1;
+            num2=1;
+        }
+            eq=" "+(num1*num2)+"÷"+pt2+"=___";
+            ans="  "+(num1*num2)+"÷"+pt2+"="+pt1+" ";
+        }
+            
+
+            ar1[i]=ans;
+            ar2[i]=eq;
+
+        }
+           
+        console.log(ar1);
+           
+        document.getElementById("show").innerHTML = ar2;
+        
+
+
+        }
+
+       function solution()
+       {
+        if(ar1.length==0)
+       {
+        console.log("generate first");
+        document.getElementById("solution").innerHTML = "Please Generate a New Set of Problems";
+       }
+       else
+       {
+
+       
+       document.getElementById("solution").innerHTML = ar1;
+
+       
+
+       }
+        
+
+
+
+       }
+
+       function enter()
+       {
+
+        
+if (Math.floor(number.value)!=number.value || 0>=number.value)
+{
+    console.log(number.value);
+    document.getElementById("return").style.color = "red";
+    document.getElementById("return").innerHTML = "Please Input a Positive Integer";
+    return qu=0;
+}
+else{
+    document.getElementById("return").style.color = "green";
+    document.getElementById("return").innerHTML = "Press Generate";
+    //console.log(number.value);
+    return qu=number.value;
+}
+
+       }
+
+
+
+
+
+        //when previous button is pressed, have show answer button
+        //have option to print problems or solutions
+
+
+
+
+
+    </script>
+
+<br>
+
+</body>
+</html>

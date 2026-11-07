@@ -1,0 +1,301 @@
+<html>
+
+    <!--_____Head__________________________________________________________________-->
+    <head>
+
+        <title>Flashcard</title>
+
+        <link rel="stylesheet" href="Acss.css">
+
+
+    </head>
+
+    <!--_____Body__________________________________________________________________-->
+    <body>       
+        <!--_____________Intro_____________-->
+        <!--Header-->
+        <a href="Home.html" style="text-decoration:none">
+            <header style="text-decoration:none">Algebrator</header>
+        </a>
+        <br>
+
+        <!--Description-->
+
+        <div  id="content">
+        <myhead>Flashcard Mode</myhead>
+        <br>
+        <div class="div-1">
+            <mytext>Questions will be randomly generated one at a time. A score and time can be viewed to determine one's result</mytext> <br>
+        </div>    
+        
+    </div>
+<br><br>
+        <hr>
+
+
+  <!--_____________Content_____________-->
+
+  <div  id="content">
+  <mytext>Quantity=</mytext>
+  <input type="number" id="quan" name="quan" value="10">
+   <br>
+  
+   <mytext>Range=</mytext>
+  <input type="number" id="trange" name="trange" value="10" min="0" >
+  <mytext>Include Negatives=</mytext>
+  <input type="checkbox" id="neg?" name="neg?">
+
+  <br><br>
+  <input type="button" value="Go" onclick="restart(); start(); " >
+
+</div>
+
+  <br>
+  <hr>
+  <br>
+
+  <div  id="content">
+  <span id="time"></span>
+</div>
+
+<div class="center">
+
+
+    <p id="equation" name="equation"></p>
+    <form>
+    
+        <input type="number" id="sol" name="sol">
+        <input type="button" id="check" name="check" value="Check" onclick="checkans()">
+        
+    </form>
+    
+    <br><br>
+    <mytext id="feedback" style="color:red"></mytext>
+    
+
+</div>
+ 
+  
+  
+  
+  <script>
+   let beg=0;
+      let count=0;
+      const ques=[];
+      function restart()
+      {
+        beg=1;
+         count=0;
+         for(i=0; i<document.getElementById("quan").value; i++)
+         {
+            ques[i]=0;
+         }
+        geneq();
+      }
+     
+
+
+      let eq="";
+      let a=0;
+           let b=0;   
+           let ans=0;
+      function geneq()
+      {
+       
+          a=0;
+          b=0;
+
+         
+           anskey="";
+       eq="";
+          //range--------------
+        
+          
+          
+
+          const rg=[0, 0];               
+          rg[1]=document.getElementById("trange").value;
+          if(document.getElementById("neg?").checked==true)
+      {
+          rg[0]=document.getElementById("trange").value*-1;
+      }
+
+     // console.log(rg);
+
+
+      //equation
+          let opp=Math.ceil(Math.random()*4);
+        // console.log(opp);
+          
+
+          //Addition/Subtraction
+          if(opp<=2)
+      {
+          
+          
+
+          a=Math.ceil((Math.random()*(rg[1]-rg[0])+rg[0])/2);
+          b=Math.ceil((Math.random()*(rg[1]-rg[0])+rg[0])/2);
+         
+
+          //console.log(a);
+          if(opp==1)
+          {
+              ans=a+b;
+              opp="+";
+          }
+          else if(opp==2)
+          {
+              //subtraction
+              if(document.getElementById("neg?").checked==false)
+              {
+                  if(a<b)
+                  {
+                      ph=a;
+                      a=b;
+                      b=ph;
+                  }
+                
+              }
+              ans=a-b;
+              opp="-"
+          }
+          
+
+          
+              }
+      else 
+      {
+          
+
+          a=Math.round(Math.sqrt(Math.random()*(rg[1]-rg[0])+rg[0]));
+          b=Math.round(Math.sqrt(Math.random()*(rg[1]-rg[0])+rg[0]));
+         
+          if(opp==3)
+      {
+          ans=a*b;
+          opp="*";
+      }
+      else if(opp==4)
+          {
+              //division
+              ans=a;
+               a=a*b;
+              opp="/"
+              if(b==0)
+          {
+              b=1;
+          }
+          }
+
+      }
+      a= a.toString();
+          b= b.toString();
+          eq=a+opp+b+"=";
+
+          count=count+1;
+          document.getElementById("equation").innerHTML=count+")"+" "+eq;
+
+         
+          
+if(count>document.getElementById("quan").value)
+{
+   // count=count.toString;
+   // right=right-count;
+   let right=document.getElementById("quan").value;
+    console.log(right);
+    //right=right.toString;
+   
+   // let output="Finished! You got "+
+for(i=0; i<count; i++)
+{
+    if(ques[i]==1)
+{
+    right=right-1;
+}
+}
+stop();
+
+let output="Finished! You got "+right+"/"+document.getElementById("quan").value+" in "+timeElapsed+" seconds!";
+reset();
+document.getElementById("time").innerHTML = "";
+    document.getElementById("equation").innerHTML=output;
+    
+}
+         
+      }
+      
+     
+         
+      
+      function checkans()
+      {
+        if(beg==1)
+      {
+
+        if(count!=document.getElementById("quan").value+1)
+{
+    
+    if(document.getElementById("sol").value==ans)
+        {
+           
+            geneq();
+            document.getElementById("feedback").innerHTML=" ";
+            document.getElementById("sol").value="";
+            
+        }
+        else{
+            document.getElementById("feedback").innerHTML="try again";
+        ques[count]=1;
+        }
+}
+
+
+      }
+      else
+      {
+        document.getElementById("feedback").innerHTML="Please Press 'Go'";
+      }
+        
+        
+      }
+     
+
+
+
+
+
+
+
+
+      var timeElapsed = 0;
+            var timerID = -1;
+            function tick() {
+                timeElapsed++
+                document.getElementById("time").innerHTML = "Seconds: "+timeElapsed;
+            }
+
+            function start() {
+                if(timerID == -1){
+                    timerID = setInterval(tick, 1000);
+                }
+            }
+
+            function stop() {
+                if(timerID != -1){
+                    clearInterval(timerID)
+                    timerID = -1
+                }
+            }
+
+            function reset() {
+                stop();
+                timeElapsed = -1;
+                tick()
+            }
+
+  </script>
+
+    </body>
+
+</html>

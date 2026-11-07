@@ -1,0 +1,190 @@
+<html>
+
+    <!--_____Head__________________________________________________________________-->
+    <head>
+
+        <title>Worksheet</title>
+
+        <link rel="stylesheet" href="Acss.css">
+
+    </head>
+
+    <!--_____Body__________________________________________________________________-->
+    <body>       
+        <!--_____________Intro_____________-->
+        <!--Header-->
+        <a href="Home.html" style="text-decoration:none">
+            <header style="text-decoration:none">Algebrator</header>
+        </a>
+        <br>
+
+        <!--Description-->
+        <div id="content">
+        <myhead>Worksheet Mode</myhead>
+        <br>
+        <div class="div-1">
+            <mytext>With a click of a button, generate multiple different worksheets for you or your students. An answer key is provided for easy marking</mytext>
+        </div>  
+        </div> 
+        <br> 
+        <hr>
+        <br>
+
+
+        <!--_____________Content_____________-->
+<mytext>Quantity=</mytext>
+        <input type="number" id="quan" name="quan" value="10">
+         <br>
+        
+         <mytext>Range=</mytext>
+        <input type="number" id="trange" name="trange" value="10" min="0" >
+        <mytext>Include Negatives=</mytext>
+        <input type="checkbox" id="neg?" name="neg?">
+
+        <br><br>
+        <input type="button" value="Generate" onclick="geneq()">
+        <input type="button" value="Print" onclick="prt()">
+
+
+        <mytext>Show Answers</mytextS>
+        <input type="checkbox" id="ans?" name="ans?" onclick="showans()">
+       <label for="ans?"></label>
+
+        
+        <script>
+            
+
+function prt()
+{
+    print();
+}
+
+            let anskey="";
+            let eq="";
+            function geneq()
+            {
+                document.getElementById("ans?").checked=false;
+
+                 anskey="";
+             eq="";
+                //range--------------
+                const equs=[];
+                
+                let a=0;
+                 let b=0;   
+                 let ans=0;
+
+            for(i=0; i<document.getElementById("quan").value; i++)
+            {
+                const rg=[0, 0];               
+                rg[1]=document.getElementById("trange").value;
+                if(document.getElementById("neg?").checked==true)
+            {
+                rg[0]=document.getElementById("trange").value*-1;
+            }
+
+           // console.log(rg);
+
+
+            //equation
+                let opp=Math.ceil(Math.random()*4);
+               console.log(opp);
+                
+
+                //Addition/Subtraction
+                if(opp<=2)
+            {
+                
+                
+
+                a=Math.ceil((Math.random()*(rg[1]-rg[0])+rg[0])/2);
+                b=Math.ceil((Math.random()*(rg[1]-rg[0])+rg[0])/2);
+               
+
+                //console.log(a);
+                if(opp==1)
+                {
+                    ans=a+b;
+                    opp="+";
+                }
+                else if(opp==2)
+                {
+                    //subtraction
+                    if(document.getElementById("neg?").checked==false)
+                    {
+                        if(a<b)
+                        {
+                            ph=a;
+                            a=b;
+                            b=ph;
+                        }
+                      
+                    }
+                    ans=a-b;
+                    opp="-"
+                }
+                
+
+                
+                    }
+            else 
+            {
+                
+
+                a=Math.round(Math.sqrt(Math.random()*(rg[1]-rg[0])+rg[0]));
+                b=Math.round(Math.sqrt(Math.random()*(rg[1]-rg[0])+rg[0]));
+               
+                if(opp==3)
+            {
+                ans=a*b;
+                opp="*";
+            }
+            else if(opp==4)
+                {
+                    //division
+                    ans=a;
+                     a=a*b;
+                    opp="/"
+                    if(b==0)
+                {
+                    b=1;
+                }
+                }
+
+            }
+            a= a.toString();
+                b= b.toString();
+                eq=eq+a+opp+b+"=___"+"<br>";
+                anskey=anskey+a+opp+b+"="+ans+"<br>";
+
+                
+                
+ 
+               
+            }
+            document.getElementById("equation").innerHTML=eq;
+               
+            }
+
+
+            function showans()
+            {
+                if(document.getElementById("ans?").checked)
+            {
+                document.getElementById("equation").innerHTML=anskey;
+            }
+            else
+            {
+                document.getElementById("equation").innerHTML=eq;
+            }
+            }
+            
+
+        </script>
+
+<p id="equation"></p>
+
+
+    </body>
+
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <head>
+          <title>Baking Imperial to Metric Converter</title>
+        <style>
+
+            body {
+  background-color: rgb(249, 232, 232);
+  padding-left: 10%;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-top: 10px;
+}
+
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            text-decoration: none;
+        }
+ 
+        div {
+            
+            background-color: white;
+            padding-left: 25px;
+            padding-right: 25px;
+            
+            width: 80%;
+            
+        }
+
+        h2 {
+            font-family: Brush Script MT;
+            font-size: 50px;
+        }
+
+
+        .hidden {
+    display: none;
+}
+
+        @media print {
+  body * {
+    visibility: hidden; /* Hides all content */
+  }
+  #printable, #printable * {
+    visibility: visible; /* Shows the target section and its children */
+  }
+  #printable {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
+
+
+
+        </style>
+    </head>
+
+
+
+
+
+    <body>
+
+        <div style="padding-top: 10px;">
+        <h2>Baking Imperial to Metric Converter</h3>
+
+<p>Input amount of ingredient on left, and indicate units on right</p>
+        <div>
+
+
+
+<h3>Common Baking Ingredients</h3>
+        
+
+<table>
+  <tr>
+    <td><label>Butter</label></td>
+    <td><input id="butter"></input></td>
+    <td>
+        <select id="butterunits">
+  <option value="tablespoon" >Tablespoons</option>
+  <option value="cup">Cups</option>
+  <option value="stick" selected>Sticks</option>
+</select>
+    </td>
+  </tr>
+  <tr>
+    <td><label>Flour</label></td>
+    <td><input id="flour"></input></td>
+    <td>
+        <select id="flourunits">
+  <option value="tablespoon" >Tablespoons</option>
+  <option value="cup" selected>Cups</option>
+</select>
+</td>
+  </tr>
+  <tr>
+    <td><label>Sugar</label></td>
+    <td><input id="sugar" ></input></td>
+    <td><select id="sugarunits">
+  <option value="teaspoon" >Teaspoons</option>
+  <option value="tablespoon">Tablespoons</option>
+  <option value="cup" selected>Cups</option>
+</select></td>
+  </tr>
+  <tr>
+    <td><label>Salt</label></td>
+    <td><input id="salt" ></input></td>
+    <td><select id="saltunits">
+  <option value="teaspoon" selected>Teaspoons</option>
+  <option value="tablespoon">Tablespoons</option>
+</select></td>
+  </tr>
+  <tr>
+    <td><label>Baking Powder</label></td>
+    <td><input id="powder" ></input></td>
+    <td><select id="powderunits">
+  <option value="teaspoon" selected>Teaspoons</option>
+  <option value="tablespoon">Tablespoons</option>
+</select></td>
+  </tr>
+  <tr>
+    <td><label>Baking Soda</label></td>
+    <td><input id="soda" ></input></td>
+    <td><select id="sodaunits">
+  <option value="teaspoon" selected>Teaspoons</option>
+  <option value="tablespoon">Tablespoons</option>
+</select></td>
+  </tr>
+</table>
+
+
+</div>
+
+
+
+
+<div>
+<h3>Liquids</h3>
+<p>This can includes ingredients such as water, milk, juice, ect.</p>
+
+<table>
+  <tr>
+    <td><label>Liquid 1</label></td>
+    <td><input id="liquid1" ></input></td>
+    <td><select id="liquid1units">
+  <option value="teaspoon" >Teaspoons</option>
+  <option value="tablespoon">Tablespoons</option>
+  <option value="ounce">Ounces</option>
+  <option value="cup" selected>Cups</option>
+</select></td>
+  </tr>
+  <tr>
+    <td><label>Liquid 2</label></td>
+    <td><input id="liquid2" ></input></td>
+    <td><select id="liquid2units">
+  <option value="teaspoon" >Teaspoons</option>
+  <option value="tablespoon">Tablespoons</option>
+  <option value="ounce">Ounces</option>
+  <option value="cup" selected>Cups</option>
+</select></td>
+  </tr>
+  <tr>
+    <td><label>Liquid 3</label></td>
+    <td><input id="liquid3" ></input></td>
+    <td>
+<select id="liquid3units">
+  <option value="teaspoon" >Teaspoons</option>
+  <option value="tablespoon">Tablespoons</option>
+  <option value="ounce">Ounces</option>
+  <option value="cup" selected>Cups</option>
+</select></td>
+  </tr>
+</table>
+
+
+</div>
+
+
+<div>
+<h3>Other</h3>
+
+<table>
+  <tr>
+    <td><label>Chocolate Chips</label></td>
+    <td><input id="chip"></input></td>
+    <td><select id="chipunits">
+  <option value="tablespoon"selected>Tablespoons</option>
+  <option value="ounce" >Ounces</option>
+</select></td>
+  </tr>
+</table>
+
+</div>
+
+
+<br>
+
+
+
+
+<button onclick="convert()">Convert</button>
+
+<div id="printable" >
+    <h3 id="Recipe" contenteditable="true"></h3>
+<ul id = "output" contenteditable="true"></ul>
+
+</div>
+
+<button id="printer" onclick="window.print()" class="hidden">Print Recipe</button>
+
+</div>
+<br><br><br><br><br>
+
+
+
+<script>
+
+
+
+    function convert(){
+        const ingredients = [];
+        
+        if(document.getElementById('butter').value !== "")
+        {
+            newIngredient = "Butter = " + String(convertButter(document.getElementById('butterunits').value)) + "g";
+            ingredients.push(newIngredient);
+
+        }
+        if(document.getElementById('flour').value !== "")
+        {
+            newIngredient = "Flour = " + String(convertFlour(document.getElementById("flourunits").value)) + "g";
+            ingredients.push(newIngredient);
+
+        }
+        
+        if(document.getElementById('sugar').value !== "")
+        {
+            newIngredient = "Sugar = " + String(convertSugar(document.getElementById("sugarunits").value)) + "g";
+            ingredients.push(newIngredient);
+        }
+        if(document.getElementById('salt').value !== "")
+        {
+            newIngredient = "Salt = " + String(convertSalt(document.getElementById("saltunits").value)) + "g";
+            ingredients.push(newIngredient);
+        }
+        if(document.getElementById('powder').value !== "")
+        {
+            newIngredient = "Baking Powder = " + String(convertPowder(document.getElementById("powderunits").value)) + "g";
+            ingredients.push(newIngredient);
+        }
+        if(document.getElementById('soda').value !== "")
+        {
+            newIngredient = "Baking Soda = " + String(convertSoda(document.getElementById("sodaunits").value)) + "g";
+            ingredients.push(newIngredient);
+        }
+        if(document.getElementById('liquid1').value !== "")
+        {
+            newIngredient = "Liquid 1 = " + String(convertLiquid(document.getElementById("liquid1units").value, "liquid1")) + "g";
+            ingredients.push(newIngredient);
+        }
+        if(document.getElementById('liquid2').value !== "")
+        {
+            newIngredient = "Liquid 2 = " + String(convertLiquid(document.getElementById("liquid2units").value, "liquid2")) + "g";
+            ingredients.push(newIngredient);
+        }
+        if(document.getElementById('liquid3').value !== "")
+        {
+            newIngredient = "Liquid 3 = " + String(convertLiquid(document.getElementById("liquid3units").value, "liquid3")) + "g";
+            ingredients.push(newIngredient);
+        }
+        if(document.getElementById('chip').value !== "")
+        {
+            newIngredient = "Chocolate Chips = " + String(convertChip(document.getElementById("chipunits").value)) + "g";
+            ingredients.push(newIngredient);
+        }
+   const listHtml = `<ul>${ingredients.map(item => `<li>${item}</li>`).join('')}</ul>`;
+
+// Inject into the page
+document.getElementById('output').innerHTML = listHtml;
+document.getElementById('Recipe').innerHTML = "Your Recipe:";
+printer.classList.remove('hidden');
+
+    }
+
+
+    function convertButter(unit){
+        let input = Number(document.getElementById("butter").value);
+        let weight = 0;
+        if(unit == "cup")
+        {
+             weight = input * 227;
+        }
+        else if(unit == "tablespoon")
+        {
+             weight = input * 14.1875;
+        }
+        else if(unit == "stick"){
+            weight = input * 113;
+        }
+        return weight.toFixed(2);
+        
+    }
+
+    function convertFlour(unit){
+        let input = Number(document.getElementById("flour").value);
+        let weight = 0;
+        if(unit == "tablespoon")
+        {
+            weight = input * 125/16;
+        }
+        else if(unit == "cup"){
+            weight = input * 125;
+        }
+    
+        return weight.toFixed(2);
+    }
+
+
+    function convertSugar(unit){
+        let input = Number(document.getElementById("sugar").value);
+        let weight = 0;
+        if(unit == "tablespoon")
+        {
+            weight = input * 12;
+        }
+        else if(unit=="cup")
+        {
+            weight = input * 200;
+        }
+        else if(unit == "teaspoon") {
+            weight = input*4;
+        }
+        return weight.toFixed(2);    
+    }
+
+    
+
+    function convertSalt(unit){
+        let input = Number(document.getElementById("salt").value);
+        let weight = 0;
+        if(unit == "tablespoon")
+        {
+            weight = input * 20;
+        }
+        else if(unit == "teaspoon") {
+            weight = input*20/3;
+        }
+        return weight.toFixed(2);    
+    }
+
+
+    
+
+    function convertPowder(unit){
+        let input = Number(document.getElementById("powder").value);
+        let weight = 0;
+        if(unit == "tablespoon")
+        {
+            weight = input * 20;
+        }
+        else if(unit == "teaspoon") {
+            weight = input*20/3;
+        }
+        return weight.toFixed(2);    
+    }
+
+
+    
+
+    function convertSoda(unit){
+        let input = Number(document.getElementById("soda").value);
+        let weight = 0;
+        if(unit == "tablespoon")
+        {
+            weight = input * 20;
+        }
+        else if(unit == "teaspoon") {
+            weight = input*20/3;
+        }
+        return weight.toFixed(2);    
+    }
+
+
+    function convertLiquid(unit, id){
+        let input = Number(document.getElementById(id).value);
+        let weight = 0;
+        if(unit == "teaspoon")
+        {
+            weight = input * 5;
+        }
+        else if(unit == "tablespoon") {
+            weight = input*15;
+        }
+        else if(unit == "ounce") {
+            weight = input*28.37;
+        }
+        else if(unit == "cup") {
+            weight = input*237;
+        }
+        return weight.toFixed(2);    
+    }
+
+
+    function convertChip(unit){
+        let input = Number(document.getElementById("chip").value);
+        let weight = 0;
+        if(unit == "tablespoon")
+        {
+            weight = input * 14;
+        }
+        else if(unit=="ounce")
+        {
+            weight = input * 28.3495;
+        }
+        return weight.toFixed(2);    
+    }
+
+    
+
+</script>
+
+    </body>
+
+
+</html>
