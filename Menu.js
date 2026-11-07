@@ -25,6 +25,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     <li><a href="PianoHome.html">Music</a></li>
                 </ul>
             </li>
+<!--
+            <li class="menu-item">
+                <a href="Arts.html" style="text-decoration: none; ">Awards</a>
+                <ul class="menu-subitem">
+                    <li><a href="PencilHome.html">Awards</a></li>
+                    <li><a href="PianoHome.html">Music</a></li> 
+                </ul>
+            </li>
+-->
             <!-- <li><a><img  style="width: 30px; height: 30px;" src="Images/picplaceholder.png" ></a></li> -->
         </ul>
 
