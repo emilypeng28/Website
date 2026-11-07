@@ -11,9 +11,12 @@ document.addEventListener("DOMContentLoaded", function() {
             <li class="menu-item">
                 <a href="Coding.html" style="text-decoration: none;">Coding</a>
                 <ul class="menu-subitem">
-                    <li><a href="SnakeHome.html">Snake Game</a></li>
-                    <li><a href="FishSimHome.html">Fish Room</a></li>
+                    <li><a href="BakingConverter/Baking-Imperial-to-Metric-Converter.html">Baking Converter</a></li>
                     <li><a href="EMILHome.html">Name Tag</a></li>
+                    <li><a href="Algebrator.html">Algebrator</a></li>
+                    <li><a href="FishSimHome.html">Fish Room</a></li>
+                    <li><a href="Algebranator.html">Algebranator</a></li>
+                    
                     <!--<li><a href="3DModelHome.html">3D Modeling</a></li>-->
                 </ul>
             </li>
